@@ -55,3 +55,8 @@ packet: 10.0.2.15 --> 1.1.1.1 [ICMP]
 - Scapy
 - Linux VM (VirtualBox)
 - Git / GitHub
+
+## Environment
+- OS: Ubuntu Linux (VirtualBox VM)
+- Editor: nano (terminal-based)
+- Python: 3.13
