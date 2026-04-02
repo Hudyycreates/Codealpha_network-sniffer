@@ -9,8 +9,6 @@ This project involved building a network packet sniffer from scratch using Pytho
 
 The goal was to understand how data actually moves through a network at a packet level, and to get practical experience with how tools like Wireshark work under the hood.
 
-> 📸 **[ADD SCREENSHOT: VM terminal overview]**
-
 ---
 
 ## Methodology
@@ -38,7 +36,6 @@ sniff(prn=handle_packet, count=10)
 
 `sniff()` listens on the network interface and calls `handle_packet()` for every packet that arrives. Even without generating any traffic, the VM was already producing background packets.
 
-> 📸 **[ADD SCREENSHOT: First output showing packet summaries]**
 
 **Step 2 — Extracting IP addresses**
 
@@ -56,8 +53,6 @@ def handle_packet(packet):
 
 `haslayer(IP)` checks if the packet has an IP layer before reading it — not every packet does.
 
-> 📸 **[ADD SCREENSHOT: Output showing real IP addresses]**
-
 **Step 3 — Protocol detection**
 
 Read the protocol number from the IP header and mapped it to a readable name:
@@ -74,8 +69,6 @@ elif proto == 17:
 ```
 
 Protocol numbers are standardised — 1 is always ICMP, 6 is always TCP, 17 is always UDP.
-
-> 📸 **[ADD SCREENSHOT: Output showing protocol names]**
 
 **Step 4 — Port numbers**
 
@@ -105,8 +98,6 @@ if packet.haslayer(Raw):
     print(f"Payload: {payload}")
 ```
 
-> 📸 **[ADD SCREENSHOT: Output showing payload data]**
-
 ---
 
 ## Findings
@@ -130,14 +121,10 @@ VM      -->  Server   [TCP]  random port --> 80   (ACK)
 
 The VM uses a random ephemeral port as source. The server stays on port 80.
 
-> 📸 **[ADD SCREENSHOT: TCP handshake visible in sniffer output]**
-
 **Payload readable on unencrypted HTTP**
 Using `curl http://neverssl.com` in a second terminal, the raw HTML of the webpage was visible in the payload — `<html>`, `<script>` and `<body>` tags all travelling in plain text inside TCP packets.
 
 This demonstrates why HTTP is considered insecure — anyone on the same network can read the data.
-
-> 📸 **[ADD SCREENSHOT: Payload showing HTML content]**
 
 ---
 
