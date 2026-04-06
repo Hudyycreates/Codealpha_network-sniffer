@@ -1,4 +1,4 @@
-# Network Sniffer 🔍
+# Network Sniffer 
 
 A Python-based network sniffer built on a Linux VM that captures live packets and analyzes their content, protocols, ports and headers.
 
